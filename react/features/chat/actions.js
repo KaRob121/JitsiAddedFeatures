@@ -72,8 +72,7 @@ export function sendMessage(message: string, ignorePrivacy: boolean = false) {
                 console.log('sus');
                 filteredMessage = 'dun dun';
                 console.log(filteredMessage);
-
-                // message = '[Message contains inappropriate text]';
+                message = '[Message contains inappropriate text]';
                 break;
             }
         }
