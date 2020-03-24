@@ -6,14 +6,16 @@ import {
     ADD_MESSAGE,
     CLEAR_MESSAGES,
     SET_PRIVATE_MESSAGE_RECIPIENT,
-    TOGGLE_CHAT
+    TOGGLE_CHAT,
+    TOGGLE_CENSOR
 } from './actionTypes';
 
 const DEFAULT_STATE = {
     isOpen: false,
     lastReadMessage: undefined,
     messages: [],
-    privateMessageRecipient: undefined
+    privateMessageRecipient: undefined,
+    isChatCensored: true
 };
 
 ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
@@ -70,6 +72,12 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
             lastReadMessage: state.messages[
                 navigator.product === 'ReactNative' ? 0 : state.messages.length - 1],
             privateMessageRecipient: state.isOpen ? undefined : state.privateMessageRecipient
+        };
+
+    case TOGGLE_CENSOR:
+        return {
+            ...state,
+            isChatCensored: !state.isChatCensored
         };
     }
 

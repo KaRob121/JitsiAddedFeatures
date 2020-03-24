@@ -35,7 +35,12 @@ type Props = {
     /**
      * Invoked to obtain translated strings.
      */
-    t: Function
+    t: Function,
+
+    /**
+     * Boolean for chat to be censored.
+     */
+    censoredChat: boolean
 };
 
 /**
@@ -167,6 +172,8 @@ class ChatInput extends Component<Props, State> {
             const filter = new Filter();
             let trimmed = '';
 
+            console.log(this.props.censoredChat);
+
             if (filter.clean(this.state.message) !== this.state.message) {
                 trimmed = '[This message contains inappropriate content]';
             } else if (filter.clean(this.state.message) === this.state.message) {
@@ -243,4 +250,18 @@ class ChatInput extends Component<Props, State> {
     }
 }
 
-export default translate(connect()(ChatInput));
+/**
+ * Maps part of the redux state to the component's props.
+ *
+ * @param {Object} state - Returns redux state.
+ * @returns {boolean}
+ */
+function mapStateToProps(state) {
+
+    return {
+        censoredChat: state['features/chat'].isChatCensored
+    };
+}
+
+
+export default translate(connect(mapStateToProps)(ChatInput));

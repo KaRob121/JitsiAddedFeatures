@@ -55,3 +55,13 @@ export const SET_PRIVATE_MESSAGE_RECIPIENT = 'SET_PRIVATE_MESSAGE_RECIPIENT';
  * }
  */
 export const TOGGLE_CHAT = 'TOGGLE_CHAT';
+
+
+/**
+ * The type of the action which signals to toggle the censor feature.
+ *
+ * {
+ *      type: TOGGLE_CENSOR
+ * }
+ */
+export const TOGGLE_CENSOR = 'TOGGLE_CENSOR';

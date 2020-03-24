@@ -5,10 +5,9 @@ import {
     CLEAR_MESSAGES,
     SEND_MESSAGE,
     SET_PRIVATE_MESSAGE_RECIPIENT,
-    TOGGLE_CHAT
+    TOGGLE_CHAT,
+    TOGGLE_CENSOR
 } from './actionTypes';
-
-import Filter from 'bad-words';
 
 /**
  * Adds a chat message to the collection of messages.
@@ -64,25 +63,20 @@ export function clearMessages() {
  * }}
  */
 export function sendMessage(message: string, ignorePrivacy: boolean = false) {
-    console.log(message);
+    // console.log(message);
 
     // code for the blurred out version:
     // const filter = new Filter({ placeHolder: '!' });
-    const filter = new Filter();
-    let filteredMessage = message;
+    // const filter = new Filter();
 
-    if (message) {
-        console.log('sus');
-        filteredMessage = 'dun dun';
-        console.log(filteredMessage);
-        console.log(filter);
-        if (message !== filter.clean(message)) {
-            // message = '[Message contains inappropriate text]';
-        }
+    // if (message) {
+    //     if (message !== filter.clean(message)) {
+    //         // message = '[Message contains inappropriate text]';
+    //     }
 
-        // code for blurred out version:
-        // message = filter.clean(message);
-    }
+    //     // code for blurred out version:
+    //     // message = filter.clean(message);
+    // }
 
     return {
         type: SEND_MESSAGE,
@@ -117,5 +111,18 @@ export function setPrivateMessageRecipient(participant: Object) {
 export function toggleChat() {
     return {
         type: TOGGLE_CHAT
+    };
+}
+
+/**
+ * Toggles the censor on the chat.
+ *
+ * @returns {{
+ *     type: TOGGLE_CENSOR
+ * }}
+ */
+export function toggleCensor() {
+    return {
+        type: TOGGLE_CENSOR
     };
 }

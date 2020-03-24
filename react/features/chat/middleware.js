@@ -211,6 +211,8 @@ function _handleChatError({ dispatch }, error) {
 function _handleReceivedMessage({ dispatch, getState }, { id, message, nick, privateMessage, timestamp }) {
     // Logic for all platforms:
     const state = getState();
+
+    console.log(state);
     const { isOpen: isChatOpen } = state['features/chat'];
 
     if (!isChatOpen) {
