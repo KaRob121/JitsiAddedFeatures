@@ -523,7 +523,7 @@ class Toolbox extends Component<Props, State> {
      * @returns {void}
      */
     _onChatToggle() {
-        console.log('...*breathes in*.....*breathes out*....my eyes glow blue like sans...*Megalovania in braps*');
+        console.log('toggle censor');
     }
 
     _onMouseOut: () => void;
