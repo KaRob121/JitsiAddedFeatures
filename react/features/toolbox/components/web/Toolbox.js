@@ -11,6 +11,7 @@ import {
 import { openDialog, toggleDialog } from '../../../base/dialog';
 import { translate } from '../../../base/i18n';
 import {
+    IconCensor,
     IconChat,
     IconExitFullScreen,
     IconFeedback,
@@ -1256,10 +1257,9 @@ class Toolbox extends Component<Props, State> {
                     { buttonsLeft.indexOf('togglecensor') !== -1
                         && <ToolbarButton
                             accessibilityLabel = { t('toolbar.accessibilityLabel.toggleCensor') }
-                            icon = { IconRaisedHand }
+                            icon = { IconCensor }
                             onClick = { this._onChatToggle }
-
-                            // toggled = { _censorToggled }
+                            toggled = { true }
                             tooltip = { t('toolbar.toggleCensor') } /> }
                     {
                         buttonsLeft.indexOf('closedcaptions') !== -1
