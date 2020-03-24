@@ -614,6 +614,7 @@
             "speakerStats": "Toggle speaker statistics",
             "tileView": "Toggle tile view",
             "toggleCamera": "Toggle camera",
+            "toggleCensor": "Toggle on / off the chat censor",
             "videomute": "Toggle mute video",
             "videoblur": "Toggle video blur"
         },
@@ -669,6 +670,7 @@
         "talkWhileMutedPopup": "Trying to speak? You are muted.",
         "tileViewToggle": "Toggle tile view",
         "toggleCamera": "Toggle camera",
+        "toggleCensor": "Toggle on / off the chat censor",        
         "videomute": "Start / Stop camera",
         "startvideoblur": "Blur my background",
         "stopvideoblur": "Disable background blur"

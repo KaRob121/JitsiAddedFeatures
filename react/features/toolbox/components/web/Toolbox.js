@@ -188,6 +188,11 @@ type Props = {
     dispatch: Function,
 
     /**
+     * Indicates whether the censor is on or not.
+     */
+    _censorToggled: boolean,
+
+    /**
      * Invoked to obtain translated strings.
      */
     t: Function
@@ -1250,10 +1255,12 @@ class Toolbox extends Component<Props, State> {
                         </div> }
                     { buttonsLeft.indexOf('togglecensor') !== -1
                         && <ToolbarButton
-                            accessibilityLabel = { t('toolbar.accessibilityLabel.raiseHand') }
+                            accessibilityLabel = { t('toolbar.accessibilityLabel.toggleCensor') }
                             icon = { IconRaisedHand }
                             onClick = { this._onChatToggle }
-                            tooltip = { t('toolbar.toggleChat') } /> }
+
+                            // toggled = { _censorToggled }
+                            tooltip = { t('toolbar.toggleCensor') } /> }
                     {
                         buttonsLeft.indexOf('closedcaptions') !== -1
                             && <ClosedCaptionButton />
