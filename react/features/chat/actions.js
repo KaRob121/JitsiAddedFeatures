@@ -77,11 +77,10 @@ export function sendMessage(message: string, ignorePrivacy: boolean = false) {
         console.log(filteredMessage);
         console.log(filter);
         if (message !== filter.clean(message)) {
-            message = '[Message contains inappropriate text]';
+            // message = '[Message contains inappropriate text]';
         }
 
-        // message = '[Message contains inappropriate text]';
-
+        // code for blurred out version:
         // message = filter.clean(message);
     }
 
