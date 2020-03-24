@@ -8,6 +8,8 @@ import {
     TOGGLE_CHAT
 } from './actionTypes';
 
+import Filter from 'bad-words';
+
 /**
  * Adds a chat message to the collection of messages.
  *
@@ -63,20 +65,23 @@ export function clearMessages() {
  */
 export function sendMessage(message: string, ignorePrivacy: boolean = false) {
     console.log(message);
-    const badWords = [ 'frick' ];
+
+    // code for the blurred out version:
+    // const filter = new Filter({ placeHolder: '!' });
+    const filter = new Filter();
     let filteredMessage = message;
 
     if (message) {
-        for (let i = 0; i < badWords.length; i++) {
-            if (message.includes(badWords[i])) {
-                console.log('sus');
-                filteredMessage = 'dun dun';
-                console.log(filteredMessage);
-
-                // message = '[Message contains inappropriate text]';
-                break;
-            }
+        console.log('sus');
+        filteredMessage = 'dun dun';
+        console.log(filteredMessage);
+        console.log(filter);
+        if (message !== filter.clean(message)) {
+            // message = '[Message contains inappropriate text]';
         }
+
+        // code for blurred out version:
+        // message = filter.clean(message);
     }
 
     return {

@@ -232,6 +232,9 @@ class Toolbox extends Component<Props, State> {
         this._onResize = this._onResize.bind(this);
         this._onSetOverflowVisible = this._onSetOverflowVisible.bind(this);
 
+        // TOGGLE CHAT:
+        this._onChatToggle = this._onChatToggle.bind(this);
+
         this._onShortcutToggleChat = this._onShortcutToggleChat.bind(this);
         this._onShortcutToggleFullScreen = this._onShortcutToggleFullScreen.bind(this);
         this._onShortcutToggleRaiseHand = this._onShortcutToggleRaiseHand.bind(this);
@@ -502,6 +505,19 @@ class Toolbox extends Component<Props, State> {
      */
     _doToggleTileView() {
         this.props.dispatch(toggleTileView());
+    }
+
+    // TOGGLE CENSOR:
+    _onChatToggle: () => void;
+
+    /**
+     * Executes the redux action to alter the boolean that censors the chat.
+     *
+     * @private
+     * @returns {void}
+     */
+    _onChatToggle() {
+        console.log('...*breathes in*.....*breathes out*....my eyes glow blue like sans...*Megalovania in braps*');
     }
 
     _onMouseOut: () => void;
@@ -1158,6 +1174,10 @@ class Toolbox extends Component<Props, State> {
         if (this._shouldShowButton('closedcaptions')) {
             buttonsLeft.push('closedcaptions');
         }
+
+        // adding toggle button:
+        buttonsLeft.push('togglecensor');
+
         if (overflowHasItems) {
             buttonsRight.push('overflowmenu');
         }
@@ -1228,6 +1248,12 @@ class Toolbox extends Component<Props, State> {
                                 tooltip = { t('toolbar.chat') } />
                             <ChatCounter />
                         </div> }
+                    { buttonsLeft.indexOf('togglecensor') !== -1
+                        && <ToolbarButton
+                            accessibilityLabel = { t('toolbar.accessibilityLabel.raiseHand') }
+                            icon = { IconRaisedHand }
+                            onClick = { this._onChatToggle }
+                            tooltip = { t('toolbar.toggleChat') } /> }
                     {
                         buttonsLeft.indexOf('closedcaptions') !== -1
                             && <ClosedCaptionButton />
