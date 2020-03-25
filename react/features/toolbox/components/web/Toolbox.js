@@ -87,6 +87,7 @@ import {
 } from '../../../subtitles';
 import { toggleCensor } from '../../../chat/actions';
 
+
 /**
  * The type of the React {@code Component} props of {@link Toolbox}.
  */
@@ -190,14 +191,14 @@ type Props = {
     dispatch: Function,
 
     /**
-     * Indicates whether the censor is on or not.
-     */
-    _censorToggled: boolean,
-
-    /**
      * Invoked to obtain translated strings.
      */
-    t: Function
+    t: Function,
+
+    /**
+     * Boolean to indicate the state of the censor toggle.
+     */
+    censoredChat: boolean
 };
 
 /**
@@ -1151,7 +1152,8 @@ class Toolbox extends Component<Props, State> {
             _hideInviteButton,
             _overflowMenuVisible,
             _raisedHand,
-            t
+            t,
+            censoredChat
         } = this.props;
         const overflowMenuContent = this._renderOverflowMenuContent();
         const overflowHasItems = Boolean(overflowMenuContent.filter(child => child).length);
@@ -1261,7 +1263,7 @@ class Toolbox extends Component<Props, State> {
                             accessibilityLabel = { t('toolbar.accessibilityLabel.toggleCensor') }
                             icon = { IconCensor }
                             onClick = { this._onCensorToggle }
-                            toggled = { true }
+                            toggled = { censoredChat }
                             tooltip = { t('toolbar.toggleCensor') } /> }
                     {
                         buttonsLeft.indexOf('closedcaptions') !== -1
@@ -1395,7 +1397,8 @@ function _mapStateToProps(state) {
             || sharedVideoStatus === 'start'
             || sharedVideoStatus === 'pause',
         _visible: isToolboxVisible(state),
-        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons
+        _visibleButtons: equals(visibleButtons, buttons) ? visibleButtons : buttons,
+        censoredChat: state['features/chat'].isChatCensored
     };
 }
 

@@ -173,12 +173,16 @@ class ChatInput extends Component<Props, State> {
             let trimmed = '';
 
             console.log(this.props.censoredChat);
-
-            if (filter.clean(this.state.message) !== this.state.message) {
-                trimmed = '[This message contains inappropriate content]';
-            } else if (filter.clean(this.state.message) === this.state.message) {
+            if (this.props.censoredChat === true) {
+                if (filter.clean(this.state.message) !== this.state.message) {
+                    trimmed = '[This message contains inappropriate content]';
+                } else if (filter.clean(this.state.message) === this.state.message) {
+                    trimmed = this.state.message.trim();
+                }
+            } else {
                 trimmed = this.state.message.trim();
             }
+
 
             // const trimmed = filter.clean(this.state.message.trim());
 
