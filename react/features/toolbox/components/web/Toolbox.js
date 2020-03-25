@@ -85,6 +85,7 @@ import VideoMuteButton from '../VideoMuteButton';
 import {
     ClosedCaptionButton
 } from '../../../subtitles';
+import { toggleCensor } from '../../../chat/actions';
 
 /**
  * The type of the React {@code Component} props of {@link Toolbox}.
@@ -239,7 +240,7 @@ class Toolbox extends Component<Props, State> {
         this._onSetOverflowVisible = this._onSetOverflowVisible.bind(this);
 
         // TOGGLE CHAT:
-        this._onChatToggle = this._onChatToggle.bind(this);
+        this._onCensorToggle = this._onCensorToggle.bind(this);
 
         this._onShortcutToggleChat = this._onShortcutToggleChat.bind(this);
         this._onShortcutToggleFullScreen = this._onShortcutToggleFullScreen.bind(this);
@@ -514,7 +515,7 @@ class Toolbox extends Component<Props, State> {
     }
 
     // TOGGLE CENSOR:
-    _onChatToggle: () => void;
+    _onCensorToggle: () => void;
 
     /**
      * Executes the redux action to alter the boolean that censors the chat.
@@ -522,8 +523,9 @@ class Toolbox extends Component<Props, State> {
      * @private
      * @returns {void}
      */
-    _onChatToggle() {
+    _onCensorToggle() {
         console.log('toggle censor');
+        this.props.dispatch(toggleCensor());
     }
 
     _onMouseOut: () => void;
@@ -1258,7 +1260,7 @@ class Toolbox extends Component<Props, State> {
                         && <ToolbarButton
                             accessibilityLabel = { t('toolbar.accessibilityLabel.toggleCensor') }
                             icon = { IconCensor }
-                            onClick = { this._onChatToggle }
+                            onClick = { this._onCensorToggle }
                             toggled = { true }
                             tooltip = { t('toolbar.toggleCensor') } /> }
                     {
