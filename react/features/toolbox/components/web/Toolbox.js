@@ -141,6 +141,11 @@ type Props = {
     _hideInviteButton: boolean,
 
     /**
+     * Whether or not the ability to censor the chat should be visible,
+     */
+    _hideCensorButton: boolean,
+
+    /**
      * Whether or not the current user is logged in through a JWT.
      */
     _isGuest: boolean,
@@ -1153,7 +1158,8 @@ class Toolbox extends Component<Props, State> {
             _overflowMenuVisible,
             _raisedHand,
             t,
-            censoredChat
+            censoredChat,
+            _hideCensorButton
         } = this.props;
         const overflowMenuContent = this._renderOverflowMenuContent();
         const overflowHasItems = Boolean(overflowMenuContent.filter(child => child).length);
@@ -1186,7 +1192,9 @@ class Toolbox extends Component<Props, State> {
         }
 
         // adding toggle button:
-        buttonsLeft.push('togglecensor');
+        if (!_hideCensorButton) {
+            buttonsLeft.push('togglecensor');
+        }
 
         if (overflowHasItems) {
             buttonsRight.push('overflowmenu');
@@ -1323,6 +1331,9 @@ class Toolbox extends Component<Props, State> {
      * @returns {boolean} True if the button should be displayed.
      */
     _shouldShowButton(buttonName) {
+        console.log('BUTTTTTOTONIOFDNINVCIUFBDVBFVIUDBJK CN JHDUYVCFDCGF');
+        console.log(this.props._visibleButtons);
+
         return this.props._visibleButtons.has(buttonName);
     }
 }
@@ -1384,6 +1395,8 @@ function _mapStateToProps(state) {
         _dialog: Boolean(state['features/base/dialog'].component),
         _feedbackConfigured: Boolean(callStatsID),
         _hideInviteButton:
+            iAmRecorder || (!addPeopleEnabled && !dialOutEnabled),
+        _hideCensorButton:
             iAmRecorder || (!addPeopleEnabled && !dialOutEnabled),
         _isGuest: state['features/base/jwt'].isGuest,
         _fullScreen: fullScreen,
