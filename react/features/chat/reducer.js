@@ -43,6 +43,8 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
                 newMessage
             ];
 
+        console.log(messages);
+
         return {
             ...state,
             lastReadMessage:
@@ -75,10 +77,13 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
         };
 
     case TOGGLE_CENSOR:
+        console.log('woahahahahahahhaha');
+
         return {
             ...state,
             isChatCensored: !state.isChatCensored
         };
+
     }
 
     return state;

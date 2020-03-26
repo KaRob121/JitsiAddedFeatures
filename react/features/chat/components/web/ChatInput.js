@@ -165,6 +165,7 @@ class ChatInput extends Component<Props, State> {
      * @returns {void}
      */
     _onDetectSubmit(event) {
+        // console.log(APP.store);
         if (event.keyCode === 13
             && event.shiftKey === false) {
             event.preventDefault();

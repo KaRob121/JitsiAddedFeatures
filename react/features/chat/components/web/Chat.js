@@ -69,6 +69,7 @@ class Chat extends AbstractChat<Props> {
      * @inheritdoc
      */
     componentDidUpdate(prevProps) {
+        console.log('WOOOOOOHAHAHAHAHAHAHAHAAH WOPAAAAHAHSHHJSDBCHJSBCWUSW');
         if (this.props._messages !== prevProps._messages) {
             this._scrollMessageContainerToBottom(true);
         } else if (this.props._isOpen && !prevProps._isOpen) {

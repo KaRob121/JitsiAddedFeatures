@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 
+import TextareaAutosize from 'react-textarea-autosize';
+
 import {
     ACTION_SHORTCUT_TRIGGERED,
     createShortcutEvent,
@@ -146,6 +148,11 @@ type Props = {
     _hideCensorButton: boolean,
 
     /**
+     * Whether or not a user can add to the censor dictionary.
+     */
+    _hideCensorAdd: boolean,
+
+    /**
      * Whether or not the current user is logged in through a JWT.
      */
     _isGuest: boolean,
@@ -214,6 +221,7 @@ type State = {
     /**
      * The width of the browser's window.
      */
+    message: string,
     windowWidth: number
 };
 
@@ -247,7 +255,8 @@ class Toolbox extends Component<Props, State> {
 
         // TOGGLE CHAT:
         this._onCensorToggle = this._onCensorToggle.bind(this);
-
+        this._setTextAreaRef = this._setTextAreaRef.bind(this);
+        this._onMessageChange = this._onMessageChange.bind(this);
         this._onShortcutToggleChat = this._onShortcutToggleChat.bind(this);
         this._onShortcutToggleFullScreen = this._onShortcutToggleFullScreen.bind(this);
         this._onShortcutToggleRaiseHand = this._onShortcutToggleRaiseHand.bind(this);
@@ -532,6 +541,32 @@ class Toolbox extends Component<Props, State> {
     _onCensorToggle() {
         console.log('toggle censor');
         this.props.dispatch(toggleCensor());
+    }
+
+    _setTextAreaRef: (?HTMLTextAreaElement) => void;
+
+    /**
+     * Sets the reference to the HTML TextArea.
+     *
+     * @param {HTMLAudioElement} textAreaElement - The HTML text area element.
+     * @private
+     * @returns {void}
+     */
+    _setTextAreaRef(textAreaElement: ?HTMLTextAreaElement) {
+        this._textArea = textAreaElement;
+    }
+
+    _onMessageChange: (Object) => void;
+
+    /**
+     * Updates the known message the user is drafting.
+     *
+     * @param {string} event - Keyboard event.
+     * @private
+     * @returns {void}
+     */
+    _onMessageChange(event) {
+        this.setState({ message: event.target.value });
     }
 
     _onMouseOut: () => void;
@@ -1159,7 +1194,8 @@ class Toolbox extends Component<Props, State> {
             _raisedHand,
             t,
             censoredChat,
-            _hideCensorButton
+            _hideCensorButton,
+            _hideCensorAdd
         } = this.props;
         const overflowMenuContent = this._renderOverflowMenuContent();
         const overflowHasItems = Boolean(overflowMenuContent.filter(child => child).length);
@@ -1194,6 +1230,10 @@ class Toolbox extends Component<Props, State> {
         // adding toggle button:
         if (!_hideCensorButton) {
             buttonsLeft.push('togglecensor');
+        }
+
+        if (!_hideCensorAdd) {
+            buttonsLeft.push('censoradd');
         }
 
         if (overflowHasItems) {
@@ -1273,6 +1313,15 @@ class Toolbox extends Component<Props, State> {
                             onClick = { this._onCensorToggle }
                             toggled = { censoredChat }
                             tooltip = { t('toolbar.toggleCensor') } /> }
+                    { buttonsLeft.indexOf('censoradd') !== -1
+                        && <TextareaAutosize
+                            id = 'censoradd'
+                            inputRef = { this._setTextAreaRef }
+                            maxRows = { 1 }
+                            onChange = { this._onMessageChange }
+                            placeholder = { 'Add words to the censor library' }
+                            value = { this.state.message } /> }
+
                     {
                         buttonsLeft.indexOf('closedcaptions') !== -1
                             && <ClosedCaptionButton />
@@ -1331,8 +1380,8 @@ class Toolbox extends Component<Props, State> {
      * @returns {boolean} True if the button should be displayed.
      */
     _shouldShowButton(buttonName) {
-        console.log('BUTTTTTOTONIOFDNINVCIUFBDVBFVIUDBJK CN JHDUYVCFDCGF');
-        console.log(this.props._visibleButtons);
+        // console.log('BUTTTTTOTONIOFDNINVCIUFBDVBFVIUDBJK CN JHDUYVCFDCGF');
+        // console.log(this.props._visibleButtons);
 
         return this.props._visibleButtons.has(buttonName);
     }
@@ -1397,6 +1446,8 @@ function _mapStateToProps(state) {
         _hideInviteButton:
             iAmRecorder || (!addPeopleEnabled && !dialOutEnabled),
         _hideCensorButton:
+            iAmRecorder || (!addPeopleEnabled && !dialOutEnabled),
+        _hideCensorAdd:
             iAmRecorder || (!addPeopleEnabled && !dialOutEnabled),
         _isGuest: state['features/base/jwt'].isGuest,
         _fullScreen: fullScreen,
