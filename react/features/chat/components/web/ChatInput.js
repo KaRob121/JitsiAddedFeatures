@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import Emoji from 'react-emoji-render';
 import TextareaAutosize from 'react-textarea-autosize';
 import type { Dispatch } from 'redux';
-
+import Filter from 'bad-words';
 import { translate } from '../../../base/i18n';
 import { connect } from '../../../base/redux';
 
@@ -162,8 +162,13 @@ class ChatInput extends Component<Props, State> {
         if (event.keyCode === 13
             && event.shiftKey === false) {
             event.preventDefault();
+            
+            const filter = new Filter();
+            let trimmed = '';
 
-            const trimmed = this.state.message.trim();
+            this.state.message = filter.clean(this.state.message);
+
+            trimmed = this.state.message.trim();
 
             if (trimmed) {
                 this.props.onSend(trimmed);
@@ -172,7 +177,6 @@ class ChatInput extends Component<Props, State> {
             }
         }
     }
-
     _onMessageChange: (Object) => void;
 
     /**
