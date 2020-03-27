@@ -7,7 +7,8 @@ import {
     SET_PRIVATE_MESSAGE_RECIPIENT,
     TOGGLE_CHAT,
     TOGGLE_CENSOR,
-    CENSOR_UPDATE
+    CENSOR_UPDATE,
+    RESET_FILTER
 } from './actionTypes';
 
 /**
@@ -140,5 +141,18 @@ export function addToCensorLibrary(newWord: string) {
     return {
         type: CENSOR_UPDATE,
         newWord
+    };
+}
+
+/**
+ * Resets the added words to the censor dictionary.
+ *
+ * @returns {{
+ *     type: RESET_FILTER
+ * }}
+ */
+export function resetCensor() {
+    return {
+        type: RESET_FILTER
     };
 }

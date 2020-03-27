@@ -8,7 +8,8 @@ import {
     SET_PRIVATE_MESSAGE_RECIPIENT,
     TOGGLE_CHAT,
     TOGGLE_CENSOR,
-    CENSOR_UPDATE
+    CENSOR_UPDATE,
+    RESET_FILTER
 } from './actionTypes';
 
 const DEFAULT_STATE = {
@@ -95,6 +96,14 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
         return {
             ...state,
             addedCensoredWords: tempWords
+        };
+
+    case RESET_FILTER:
+        console.log('go to reducer');
+
+        return {
+            ...state,
+            addedCensoredWords: []
         };
 
     }

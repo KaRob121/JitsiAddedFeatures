@@ -14,6 +14,7 @@ import { openDialog, toggleDialog } from '../../../base/dialog';
 import { translate } from '../../../base/i18n';
 import {
     IconCensor,
+    IconCensorReset,
     IconChat,
     IconExitFullScreen,
     IconFeedback,
@@ -87,7 +88,7 @@ import VideoMuteButton from '../VideoMuteButton';
 import {
     ClosedCaptionButton
 } from '../../../subtitles';
-import { toggleCensor, addToCensorLibrary } from '../../../chat/actions';
+import { toggleCensor, addToCensorLibrary, resetCensor } from '../../../chat/actions';
 
 
 /**
@@ -258,6 +259,7 @@ class Toolbox extends Component<Props, State> {
         this._setTextAreaRef = this._setTextAreaRef.bind(this);
         this._onMessageChange = this._onMessageChange.bind(this);
         this._onDetectSubmit = this._onDetectSubmit.bind(this);
+        this._onResetCensor = this._onResetCensor.bind(this);
         this._onShortcutToggleChat = this._onShortcutToggleChat.bind(this);
         this._onShortcutToggleFullScreen = this._onShortcutToggleFullScreen.bind(this);
         this._onShortcutToggleRaiseHand = this._onShortcutToggleRaiseHand.bind(this);
@@ -542,6 +544,17 @@ class Toolbox extends Component<Props, State> {
     _onCensorToggle() {
         console.log('toggle censor');
         this.props.dispatch(toggleCensor());
+    }
+
+    _onResetCensor: () => void;
+
+    /**
+     * Executes redux action to reset the added words to the censor dictionary.
+     *
+     * @returns {void}
+     */
+    _onResetCensor() {
+        this.props.dispatch(resetCensor());
     }
 
     _setTextAreaRef: (?HTMLTextAreaElement) => void;
@@ -1258,6 +1271,10 @@ class Toolbox extends Component<Props, State> {
             buttonsLeft.push('censoradd');
         }
 
+        if (!_hideCensorAdd) {
+            buttonsLeft.push('censorreset');
+        }
+
         if (overflowHasItems) {
             buttonsRight.push('overflowmenu');
         }
@@ -1342,9 +1359,15 @@ class Toolbox extends Component<Props, State> {
                             maxRows = { 1 }
                             onChange = { this._onMessageChange }
                             onKeyDown = { this._onDetectSubmit }
-                            placeholder = { 'Add words to the censor library' }
+                            placeholder = { 'Censor words' }
                             value = { this.state.message } /> }
-
+                    { buttonsLeft.indexOf('censorreset') !== -1
+                        && <ToolbarButton
+                            accessibilityLabel = { t('toolbar.accessibilityLabel.resetCensor') }
+                            icon = { IconCensorReset }
+                            onClick = { this._onResetCensor }
+                            toggled = { false }
+                            tooltip = { t('toolbar.resetCensor') } /> }
                     {
                         buttonsLeft.indexOf('closedcaptions') !== -1
                             && <ClosedCaptionButton />

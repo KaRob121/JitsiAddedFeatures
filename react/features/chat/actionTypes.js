@@ -75,3 +75,12 @@ export const TOGGLE_CENSOR = 'TOGGLE_CENSOR';
  * }
  */
 export const CENSOR_UPDATE = 'CENSOR_UPDATE';
+
+/**
+ * The type of the action that reset the censor filter's words that were added by the moderator.
+ *
+ * {
+ *      type: RESET_FILTER
+ * }
+ */
+export const RESET_FILTER = 'RESET_FILTER';
