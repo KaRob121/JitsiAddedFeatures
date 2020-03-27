@@ -178,6 +178,10 @@ class ChatInput extends Component<Props, State> {
             const filter = new Filter();
             let trimmed = '';
 
+            for (let i = 0; i < this.props.addedCensoredWords.length; i++) {
+                filter.addWords(this.props.addedCensoredWords[i]);
+            }
+
             console.log(this.props.addedCensoredWords);
 
             console.log(this.props.censoredChat);
