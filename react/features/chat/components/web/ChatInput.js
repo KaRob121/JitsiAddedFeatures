@@ -40,7 +40,12 @@ type Props = {
     /**
      * Boolean for chat to be censored.
      */
-    censoredChat: boolean
+    censoredChat: boolean,
+
+    /**
+     * Array of strings for added words to the censor
+     */
+    addedCensoredWords: Array<string>
 };
 
 /**
@@ -173,6 +178,8 @@ class ChatInput extends Component<Props, State> {
             const filter = new Filter();
             let trimmed = '';
 
+            console.log(this.props.addedCensoredWords);
+
             console.log(this.props.censoredChat);
             if (this.props.censoredChat === true) {
                 if (filter.clean(this.state.message) !== this.state.message) {
@@ -264,7 +271,8 @@ class ChatInput extends Component<Props, State> {
 function mapStateToProps(state) {
 
     return {
-        censoredChat: state['features/chat'].isChatCensored
+        censoredChat: state['features/chat'].isChatCensored,
+        addedCensoredWords: state['features/chat'].addedCensoredWords
     };
 }
 

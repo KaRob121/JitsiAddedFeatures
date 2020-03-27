@@ -65,3 +65,13 @@ export const TOGGLE_CHAT = 'TOGGLE_CHAT';
  * }
  */
 export const TOGGLE_CENSOR = 'TOGGLE_CENSOR';
+
+
+/**
+ * The type of the action which signals new words to be added to the censor library.
+ *
+ * {
+ *      type: CENSOR_UPDATE
+ * }
+ */
+export const CENSOR_UPDATE = 'CENSOR_UPDATE';

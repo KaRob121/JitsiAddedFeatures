@@ -7,7 +7,8 @@ import {
     CLEAR_MESSAGES,
     SET_PRIVATE_MESSAGE_RECIPIENT,
     TOGGLE_CHAT,
-    TOGGLE_CENSOR
+    TOGGLE_CENSOR,
+    CENSOR_UPDATE
 } from './actionTypes';
 
 const DEFAULT_STATE = {
@@ -15,8 +16,11 @@ const DEFAULT_STATE = {
     lastReadMessage: undefined,
     messages: [],
     privateMessageRecipient: undefined,
-    isChatCensored: true
+    isChatCensored: true,
+    addedCensoredWords: []
 };
+
+let tempWords = [];
 
 ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
     switch (action.type) {
@@ -82,6 +86,15 @@ ReducerRegistry.register('features/chat', (state = DEFAULT_STATE, action) => {
         return {
             ...state,
             isChatCensored: !state.isChatCensored
+        };
+
+    case CENSOR_UPDATE:
+        console.log('updating censor...');
+        tempWords.push(action.newWord);
+
+        return {
+            ...state,
+            addedCensoredWords: tempWords
         };
 
     }

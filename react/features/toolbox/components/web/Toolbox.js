@@ -87,7 +87,7 @@ import VideoMuteButton from '../VideoMuteButton';
 import {
     ClosedCaptionButton
 } from '../../../subtitles';
-import { toggleCensor } from '../../../chat/actions';
+import { toggleCensor, addToCensorLibrary } from '../../../chat/actions';
 
 
 /**
@@ -257,6 +257,7 @@ class Toolbox extends Component<Props, State> {
         this._onCensorToggle = this._onCensorToggle.bind(this);
         this._setTextAreaRef = this._setTextAreaRef.bind(this);
         this._onMessageChange = this._onMessageChange.bind(this);
+        this._onDetectSubmit = this._onDetectSubmit.bind(this);
         this._onShortcutToggleChat = this._onShortcutToggleChat.bind(this);
         this._onShortcutToggleFullScreen = this._onShortcutToggleFullScreen.bind(this);
         this._onShortcutToggleRaiseHand = this._onShortcutToggleRaiseHand.bind(this);
@@ -567,6 +568,27 @@ class Toolbox extends Component<Props, State> {
      */
     _onMessageChange(event) {
         this.setState({ message: event.target.value });
+    }
+
+    _onDetectSubmit: (Object) => void;
+
+    /**
+     * Detects if enter has been pressed. If so, submit the message in the chat
+     * window.
+     *
+     * @param {string} event - Keyboard event.
+     * @private
+     * @returns {void}
+     */
+    _onDetectSubmit(event) {
+        if (event.keyCode === 13
+            && event.shiftKey === false) {
+            // console.log(APP.store);
+            console.log('word to be added: ');
+            console.log(this.state.message);
+            this.props.dispatch(addToCensorLibrary(this.state.message.trim()));
+            this.setState({ message: '' });
+        }
     }
 
     _onMouseOut: () => void;
@@ -1319,6 +1341,7 @@ class Toolbox extends Component<Props, State> {
                             inputRef = { this._setTextAreaRef }
                             maxRows = { 1 }
                             onChange = { this._onMessageChange }
+                            onKeyDown = { this._onDetectSubmit }
                             placeholder = { 'Add words to the censor library' }
                             value = { this.state.message } /> }
 
