@@ -604,7 +604,8 @@
             "profile": "Edit your profile",
             "raiseHand": "Toggle raise hand",
             "recording": "Toggle recording",
-            "remoteMute": "Mute participant",
+            "remoteMute": "Mute participant",\
+            "resetCensor": "Reset words added to censor dictionary",
             "Settings": "Toggle settings",
             "sharedvideo": "Toggle Youtube video sharing",
             "shareRoom": "Invite someone",
@@ -657,6 +658,7 @@
         "profile": "Edit your profile",
         "raiseHand": "Raise / Lower your hand",
         "raiseYourHand": "Raise your hand",
+        "resetCensor": "Reset words added to censor dictionary",
         "Settings": "Settings",
         "sharedvideo": "Share a YouTube video",
         "shareRoom": "Invite someone",
